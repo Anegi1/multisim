@@ -78,9 +78,9 @@ def Wipe(_var_list):
 
 def LoadIcedata(_icepath):
     _output = None    
-    _ice_dep, _ice_abs, _ice_sca, _ice_unk = np.loadtxt(_icepath, unpack=True, usecols=[0,1,2,3])
-    _output = [_ice_dep, _ice_abs, _ice_sca, _ice_unk]
-    Wipe([ _ice_dep, _ice_abs, _ice_sca, _ice_unk])
+    _ice_dep, _ice_abs, _ice_sca, _ice_unk,_ice_5,_ice_7,_ice_grain = np.loadtxt(_icepath, unpack=True, usecols=[0,1,2,3,4,5,6])
+    _output = [_ice_dep, _ice_abs, _ice_sca, _ice_unk,_ice_5,_ice_7,_ice_grain]
+    Wipe([ _ice_dep, _ice_abs, _ice_sca, _ice_unk,_ice_5,_ice_7,_ice_grain])
     return _output
 
 def GetIcemodel(ice_data, 
@@ -99,6 +99,9 @@ def GetIcemodel(ice_data,
     _tru_sca = copy.deepcopy(ice_data[1])
     _tru_abs = copy.deepcopy(ice_data[2])
     _tru_unk = copy.deepcopy(ice_data[3])
+    _tru_5 = copy.deepcopy(ice_data[4])
+    _tru_6 = copy.deepcopy(ice_data[5])
+    _tru_grain = copy.deepcopy(ice_data[6])
  
     _M_plus = (np.log10(_tru_abs[:-1]*_tru_sca[:-1]))/2
     _M_minus = (np.log10(_tru_abs[:-1]/_tru_sca[:-1]))/2
@@ -130,7 +133,7 @@ def GetIcemodel(ice_data,
     _pfs_sca  = np.append(  _pfs_sca, _tru_sca[-1])    
     _pfs_abs  = np.append(  _pfs_abs, _tru_abs[-1])    
     
-    _output = [_tru_dep, _pfs_sca, _pfs_abs, _tru_unk]
+    _output = [_tru_dep, _pfs_sca, _pfs_abs, _tru_unk,_tru_5,_tru_6,_tru_grain]
     
     Wipe([_tru_dep, _tru_sca, _tru_abs, _M_plus, _M_minus, _fs, _pfs, _pfs_abs, _pfs_sca])
     return _output
@@ -153,6 +156,9 @@ def GetFourierParameters(ice_data,
     _tru_sca = copy.deepcopy(ice_data[1])
     _tru_abs = copy.deepcopy(ice_data[2])
     _tru_unk = copy.deepcopy(ice_data[3])
+    _tru_5 = copy.deepcopy(ice_data[4])
+    _tru_6 = copy.deepcopy(ice_data[5])
+    _tru_grain = copy.deepcopy(ice_data[6])    
 
     _M_plus = (np.log10(_tru_abs[:-1]*_tru_sca[:-1]))/2
     _M_minus = (np.log10(_tru_abs[:-1]/_tru_sca[:-1]))/2
